@@ -1,0 +1,32 @@
+{
+    "authors": [
+        {
+            "name": "Sebastian Bergmann"
+        },
+        {
+            "name": "Kore Nordmann"
+        },
+        {
+            "name": "Derick Rethans"
+        },
+        {
+            "name": "Tobias Schlitt"
+        },
+        {
+            "name": "Alexandru Stanoi"
+        },
+        {
+            "name": "James Pic"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src"
+        ]
+    },
+    "description": "The MvcTools component provides functionality for request parsing, routing, dispatching, views and response writing. With the tools in this component you can very easily build an MVC framework.",
+    "homepage": "https://github.com/zetacomponents",
+    "license": "apache2",
+    "name": "zetacomponents/mvc-tools",
+    "type": "library"
+}
