@@ -186,15 +186,17 @@ class ezcMvcHttpRequestParser extends ezcMvcRequestParser
     }
 
     /**
-     * Processes the request body for PUT requests.
+     * Processes the request body for PUT and POST requests.
      */
     protected function processBody()
     {
         $req = $this->request;
 
-        if ( $req->protocol == 'http-put' )
+        switch ( $req->protocol )
         {
-            $req->body = file_get_contents( "php://input" );
+            case 'http-put':
+            case 'http-post':
+                $req->body = file_get_contents( "php://input" );
         }
     }
 
