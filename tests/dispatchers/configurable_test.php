@@ -24,7 +24,6 @@
  * @package MvcTools
  * @subpackage Tests
  */
-require_once 'MvcTools/tests/testfiles/configurable-dispatcher.php';
 
 /**
  * Test the configurable dispatcher.
