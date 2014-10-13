@@ -30,6 +30,7 @@
  *
  * @package MvcTools
  * @subpackage Tests
+ * @runTestsInSeparateProcesses
  */
 class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
 {
