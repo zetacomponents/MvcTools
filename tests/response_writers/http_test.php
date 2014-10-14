@@ -240,7 +240,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $expectedHeaders = array(
             "X-Powered-By: Apache Zeta Components MvcTools",
             "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
-            "Content-type: text/html+test;charset=utf-8",
+            "Content-Type: text/html+test; charset=utf-8",
             'Content-Length: 8',
         );
 
