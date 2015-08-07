@@ -171,7 +171,17 @@ abstract class ezcMvcController
      */
     public static function createActionMethodName( $action )
     {
-        $actionMethod = 'do' . preg_replace( '@[^A-Za-z]@', '', preg_replace( '@[A-Za-z]+@e', 'ucfirst( "\\0" )', $action ) );
+        $actionMethod = 'do' . preg_replace(
+                '@[^A-Za-z]@',
+                '',
+                preg_replace_callback(
+                    '@[A-Za-z]+@',
+                    function (array $matches) {
+                        return ucfirst($matches[0]);
+                    },
+                    $action
+                )
+            );
         return $actionMethod;
     }
 
