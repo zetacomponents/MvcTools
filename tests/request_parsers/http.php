@@ -24,9 +24,6 @@
  * @package MvcTools
  * @subpackage Tests
  */
-require_once 'MvcTools/tests/testfiles/testclasses.php';
-require_once 'UnitTest/src/regression_test.php';
-require_once 'UnitTest/src/regression_suite.php';
 
 /**
  * Test the handler classes.

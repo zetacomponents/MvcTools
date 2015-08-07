@@ -24,13 +24,13 @@
  * @package MvcTools
  * @subpackage Tests
  */
-require_once 'MvcTools/tests/testfiles/testclasses.php';
 
 /**
  * Test the handler classes.
  *
  * @package MvcTools
  * @subpackage Tests
+ * @runTestsInSeparateProcesses
  */
 class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
 {

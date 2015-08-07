@@ -24,7 +24,6 @@
  * @package MvcTools
  * @subpackage Tests
  */
-require_once 'MvcTools/tests/testfiles/catchall.php';
 
 /**
  * Test the handler classes.

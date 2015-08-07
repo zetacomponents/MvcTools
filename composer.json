@@ -24,6 +24,11 @@
             "src"
         ]
     },
+    "autoload-dev": {
+        "classmap": [
+            "tests"
+        ]
+    },
     "description": "The MvcTools component provides functionality for request parsing, routing, dispatching, views and response writing. With the tools in this component you can very easily build an MVC framework.",
     "homepage": "https://github.com/zetacomponents",
     "license": "Apache-2.0",
@@ -33,6 +38,7 @@
         "zetacomponents/base": "~1.8"
     },
     "require-dev": {
-        "zetacomponents/unit-test": "*"
+        "zetacomponents/unit-test": "*",
+        "phpunit/phpunit": "*"
     }
 }

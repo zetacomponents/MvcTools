@@ -24,7 +24,6 @@
  * @package MvcTools
  * @subpackage Tests
  */
-require_once 'MvcTools/tests/testfiles/controller.php';
 
 /**
  * Test the handler classes.
