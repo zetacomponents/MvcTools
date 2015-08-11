@@ -194,6 +194,7 @@ class ezcMvcHttpResponseWriter extends ezcMvcResponseWriter
     {
         $content = $this->response->content;
         $defaultContentType = 'text/html';
+        $defaultContentCharset = 'utf-8';
 
         if ( $content->language )
         {
@@ -202,10 +203,8 @@ class ezcMvcHttpResponseWriter extends ezcMvcResponseWriter
         if ( $content->type || $content->charset )
         {
             $contentType = $content->type ? $content->type : $defaultContentType;
-            if ( $content->charset )
-            {
-                $contentType .= '; charset=' . $content->charset;
-            }
+            $contentCharset = $content->charset ? $content->charset : $defaultContentCharset;
+            $contentType .= '; charset=' . $contentCharset;
             $this->headers['Content-Type'] = $contentType;
         }
         if ( $content->encoding )

@@ -111,29 +111,48 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
 
     public static function testCookies()
     {
+        $august2008 = new DateTime('August 30th, 2008 UTC');
+
         $response = new ezcMvcResponse;
         $response->body = "Ze body.";
         $response->cookies[] = new ezcMvcResultCookie( 'simple', 'one' );
         $response->cookies[] = new ezcMvcResultCookie(
-            'complex', 'e=mc^2', new DateTime( 'August 30th, 2008 UTC' ),
+            'complex', 'e=mc^2', $august2008,
             'ez.no', '/test', true, true );
         $response->cookies[] = new ezcMvcResultCookie(
             'speed', 'v=9.8*(m/s^2)', null, '', '', false, true );
         $response->cookies[] = new ezcMvcResultCookie( 'warp', 'G=(8*pi/c^4)GT' );
-        $response->cookies[3]->expire = new DateTime( 'Dec 12, 2034 UTC' );
+        $december2034 = new DateTime('Dec 12, 2034 UTC');
+        $response->cookies[3]->expire = $december2034;
         $response->cookies[3]->secure = true;
-        
-        list( $headers, $body ) = self::doTest( $response );
 
-        $expectedHeaders = array(
-            "X-Powered-By: Apache Zeta Components MvcTools",
-            "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
-            'Content-Length: 8',
-            "Set-Cookie: simple=one",
-            "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30-Aug-2008 00:00:00 GMT; path=/test; domain=ez.no; secure; httponly",
-            "Set-Cookie: speed=v%3D9.8%2A%28m%2Fs%5E2%29; httponly",
-            "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12-Dec-2034 00:00:00 GMT; secure",
-        );
+        $maxAgeAugust2008 = $august2008->getTimestamp() - time();
+        $maxAgeDecember2034 = $december2034->getTimestamp() - time();
+
+        list( $headers, $body ) = self::doTest( $response );
+        if (version_compare(phpversion(), '5.5.0', '<')) {
+            $expectedHeaders = array(
+                "X-Powered-By: Apache Zeta Components MvcTools",
+                "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
+                'Content-Length: 8',
+                "Set-Cookie: simple=one",
+                "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30-Aug-2008 00:00:00 GMT; path=/test; domain=ez.no; secure; httponly",
+                "Set-Cookie: speed=v%3D9.8%2A%28m%2Fs%5E2%29; httponly",
+                "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12-Dec-2034 00:00:00 GMT; secure",
+            );
+        } else {
+            $expectedHeaders = array(
+                "X-Powered-By: Apache Zeta Components MvcTools",
+                "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
+                'Content-Length: 8',
+                "Set-Cookie: simple=one",
+                "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30-Aug-2008 00:00:00 GMT; Max-Age=" . $maxAgeAugust2008 . "; path=/test; domain=ez.no; secure; httponly",
+                "Set-Cookie: speed=v%3D9.8%2A%28m%2Fs%5E2%29; httponly",
+                "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12-Dec-2034 00:00:00 GMT; Max-Age=" . $maxAgeDecember2034 . "; secure",
+            );
+        }
+
+
 
         self::assertSame( $expectedHeaders, $headers );
         self::assertSame( "Ze body.", $body );
@@ -238,7 +257,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $expectedHeaders = array(
             "X-Powered-By: Apache Zeta Components MvcTools",
             "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
-            "Content-type: text/html+test;charset=utf-8",
+            "Content-Type: text/html+test; charset=utf-8",
             'Content-Length: 8',
         );
 
