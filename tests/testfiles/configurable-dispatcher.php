@@ -424,4 +424,18 @@ class testWrongObjectsConfiguration implements ezcMvcDispatcherConfiguration
     {
     }
 }
+
+class configurableDispatcherWithOverridenCreateResult extends ezcMvcConfigurableDispatcher
+{
+    protected function createResult( ezcMvcController $controller, ezcMvcRoutingInformation $routingInformation )
+    {
+        $result = parent::createResult($controller, $routingInformation);
+
+        $result->variables['configurableDispatcherWithOverridenCreateResult'] = true;
+
+        return $result;
+    }
+
+}
+
 ?>
