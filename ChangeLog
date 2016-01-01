@@ -1,3 +1,10 @@
+1.2.1 - Saturday 02 January 2016
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Fixed: removed /e modifier from preg_replace (deprecated in PHP 5.5).
+- Updated: Default to utf-8 for ezcMvcResultContent.
+
+
 1.2 - Saturday 27 September 2014
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
