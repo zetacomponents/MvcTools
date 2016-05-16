@@ -207,6 +207,19 @@ class ezcMvcConfigurableDispatcher implements ezcMvcDispatcher
     }
 
     /**
+     * Retrieves a result from the controller.
+     *
+     * @param ezcMvcController $controller
+     *
+     * @return ezcMvcInternalRedirect|ezcMvcResult
+     * @throws ezcMvcActionNotFoundException
+     */
+    protected function createResult(ezcMvcController $controller, ezcMvcRoutingInformation $routingInformation)
+    {
+        return $controller->createResult();
+    }
+
+    /**
      * Runs through the request, by using the configuration to obtain correct handlers.
      */
     public function run()
@@ -259,7 +272,7 @@ class ezcMvcConfigurableDispatcher implements ezcMvcDispatcher
             // run the controller
             try
             {
-                $result = $controller->createResult();
+                $result = $this->createResult($controller, $routingInformation);
             }
             catch ( Exception $e )
             {

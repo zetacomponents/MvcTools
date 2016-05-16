@@ -84,6 +84,14 @@ class ezcMvcToolsConfigurableDispatcherTest extends ezcTestCase
         }
     }
 
+    function testCreateResultCanBeOverridden()
+    {
+        $config = new simpleConfiguration();
+        $dispatcher = new configurableDispatcherWithOverridenCreateResult( $config );
+        $dispatcher->run();
+        self::assertEquals( "BODY: Name: name, Vars: array ([CR]  'configurableDispatcherWithOverridenCreateResult' => true,[CR])", $config->store );
+    }
+
     function testPreRoutingFilter()
     {
         $config = new simpleConfiguration();
