@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  # Run on all pushes to master and on all pull requests.
+  push:
+    branches:
+      master
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: "zetacomponents/.github/.github/workflows/ci.yml@master"

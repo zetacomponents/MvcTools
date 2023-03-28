@@ -106,7 +106,7 @@ class testPrefixRouter extends ezcMvcRouter
     {
         $simple = new testSimpleRouter( $this->request );
         $routes = testSimpleRouter::prefix( '@^blog/@', $simple->createRoutes() );
-        
+
         return $routes;
     }
 }
@@ -150,7 +150,7 @@ class testOneView extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new testViewHandler( 'name', 'templateName' ); 
+        $zones[] = new testViewHandler( 'name', 'templateName' );
         return $zones;
     }
 }
@@ -160,7 +160,7 @@ class testOnePhpView extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new ezcMvcPhpViewHandler( 'page_layout', dirname( __FILE__ ) . '/views/php/simple.php' ); 
+        $zones[] = new ezcMvcPhpViewHandler( 'page_layout', dirname( __FILE__ ) . '/views/php/simple.php' );
         return $zones;
     }
 }
@@ -170,8 +170,8 @@ class testTwoPhpViews extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new ezcMvcPhpViewHandler( 'nav', dirname( __FILE__ ) . '/views/php/nav.php' ); 
-        $zones[] = new ezcMvcPhpViewHandler( 'page_layout', dirname( __FILE__ ) . '/views/php/simple_with_nav.php' ); 
+        $zones[] = new ezcMvcPhpViewHandler( 'nav', dirname( __FILE__ ) . '/views/php/nav.php' );
+        $zones[] = new ezcMvcPhpViewHandler( 'page_layout', dirname( __FILE__ ) . '/views/php/simple_with_nav.php' );
         return $zones;
     }
 }
@@ -181,7 +181,7 @@ class testNonExistingPhpView extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new ezcMvcPhpViewHandler( 'page_layout', dirname( __FILE__ ) . '/views/php/not_here.php' ); 
+        $zones[] = new ezcMvcPhpViewHandler( 'page_layout', dirname( __FILE__ ) . '/views/php/not_here.php' );
         return $zones;
     }
 }
@@ -191,7 +191,7 @@ class testOneJsonView extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new ezcMvcJsonViewHandler( 'page_layout' ); 
+        $zones[] = new ezcMvcJsonViewHandler( 'page_layout' );
         return $zones;
     }
 }
@@ -201,8 +201,8 @@ class testTwoJsonViews extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new ezcMvcJsonViewHandler( 'nav' ); 
-        $zones[] = new ezcMvcJsonViewHandler( 'page_layout' ); 
+        $zones[] = new ezcMvcJsonViewHandler( 'nav' );
+        $zones[] = new ezcMvcJsonViewHandler( 'page_layout' );
         return $zones;
     }
 }
@@ -212,15 +212,19 @@ class testTwoViews extends ezcMvcView
     function createZones( $layout )
     {
         $zones = array();
-        $zones[] = new testViewHandler( 'name1', 'templateName' ); 
-        $zones[] = new testViewHandler( 'name2', 'templateName' ); 
+        $zones[] = new testViewHandler( 'name1', 'templateName' );
+        $zones[] = new testViewHandler( 'name2', 'templateName' );
         return $zones;
     }
 }
 
 class testViewHandler implements ezcMvcViewHandler
 {
+    public $name;
+    public $templateName;
+    public $result;
     public $vars = array();
+
     function __construct( $name, $templateName = null )
     {
         $this->name = $name;
