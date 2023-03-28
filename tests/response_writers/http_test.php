@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,10 +34,15 @@
  */
 class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
-        if ( !extension_loaded( 'xdebug' ) || !function_exists( 'xdebug_get_headers' ) )
-        {
+        if (
+            !extension_loaded( 'xdebug' ) ||
+            !function_exists( 'xdebug_get_headers' ) ||
+            !function_exists( 'xdebug_info' ) ||
+            !in_array( 'develop', xdebug_info( 'mode' ) )
+
+        ) {
             self::markTestSkipped( "Xdebug is required, with xdebug_get_headers() available." );
         }
     }
@@ -58,7 +63,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
     {
         $response = new ezcMvcResponse;
         $response->body = "Ze body.";
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -77,7 +82,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response = new ezcMvcResponse;
         $response->generator = "Albert";
         $response->body = "Ze body.";
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -95,7 +100,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response = new ezcMvcResponse;
         $response->body = "Ze body.";
         $response->cookies[] = new ezcMvcResultCookie( 'simple', 'one' );
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -164,7 +169,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response = new ezcMvcResponse;
         $response->body = "Ze body.";
         $response->date = new DateTime( '2008-07-22 15:03 Europe/Oslo' );
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -187,7 +192,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response->cache->controls = array( 'no-cache', 'must-revalidate' );
         $response->cache->pragma = 'no-cache';
         $response->cache->lastModified = new DateTime( '2008-07-22 09:15 Europe/Amsterdam' );
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -211,7 +216,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response->body = "Ze body.";
         $response->content = new ezcMvcResultContent;
         $response->content->language = 'en-GB';
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -231,7 +236,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response->body = "Ze body.";
         $response->content = new ezcMvcResultContent;
         $response->content->language = 'en-US';
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -251,7 +256,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response->body = "Ze body.";
         $response->content = new ezcMvcResultContent;
         $response->content->type = 'text/html+test';
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -272,7 +277,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $response->content = new ezcMvcResultContent;
         $response->content->type = 'text/html+test';
         $response->content->charset = 'latin1';
-        
+
         list( $headers, $body ) = self::doTest( $response );
 
         $expectedHeaders = array(
@@ -358,7 +363,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $expectedHeaders = array(
             "X-Powered-By: Apache Zeta Components MvcTools",
             "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
-            'Content-Disposition: inline' . 
+            'Content-Disposition: inline' .
                 '; creation-date="' . date_create()->modify( '-1 day' )->format( DateTime::RFC2822 ) . '"' .
                 '; modification-date="' . date_create()->modify( '-1 hour' )->format( DateTime::RFC2822 ) . '"' .
                 '; read-date="' . date_create()->format( DateTime::RFC2822 ) . '"',
@@ -380,7 +385,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $expectedHeaders = array(
             "X-Powered-By: Apache Zeta Components MvcTools",
             "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T' ),
-            'Content-Disposition: inline; filename=kake.pdf', 
+            'Content-Disposition: inline; filename=kake.pdf',
             'Content-Length: 0',
         );
 
@@ -427,7 +432,7 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
 
     public static function suite()
     {
-         return new PHPUnit_Framework_TestSuite( __CLASS__ );
+         return new PHPUnit\Framework\TestSuite( __CLASS__ );
     }
 }
 ?>

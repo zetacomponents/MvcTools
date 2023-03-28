@@ -8,9 +8,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -119,9 +119,9 @@ class ezcMvcToolsConfigurableDispatcherTest extends ezcTestCase
         {
             $dispatcher->run();
         }
-        catch ( PHPUnit_Framework_Error $e )
+        catch ( TypeError $e )
         {
-            self::assertRegExp( "/^Argument 1 passed to simpleConfiguration::runPreRoutingFilters\(\) must be an instance of ezcMvcRequest, null given, called in/", $e->getMessage() );
+            self::assertMatchesRegularExpression( "/Argument.*1.*ezcMvcRequest, null given, called in/", $e->getMessage() );
         }
     }
 
@@ -246,7 +246,7 @@ class ezcMvcToolsConfigurableDispatcherTest extends ezcTestCase
 
     public static function suite()
     {
-         return new PHPUnit_Framework_TestSuite( __CLASS__ );
+         return new PHPUnit\Framework\TestSuite( __CLASS__ );
     }
 }
 ?>

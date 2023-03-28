@@ -9,9 +9,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -148,13 +148,13 @@ class ezcMvcRailsRoute implements ezcMvcRoute, ezcMvcReversibleRoute
         $matches = array();
 
         // first we split the pattern and request ID per /
-        $patternParts = preg_split( '@(/)@', $this->pattern, null, PREG_SPLIT_DELIM_CAPTURE );
-        $requestParts = preg_split( '@(/)@', $this->getUriString( $request ), null, PREG_SPLIT_DELIM_CAPTURE );
+        $patternParts = preg_split( '@(/)@', $this->pattern, -1, PREG_SPLIT_DELIM_CAPTURE );
+        $requestParts = preg_split( '@(/)@', $this->getUriString( $request ), -1, PREG_SPLIT_DELIM_CAPTURE );
 
         if ( strpos( $patternParts[0], '.' ) !== false )
         {
-            $subPatternParts = preg_split( '@([.])@', $patternParts[0], null, PREG_SPLIT_DELIM_CAPTURE );
-            $subRequestParts = preg_split( '@([.])@', $requestParts[0], null, PREG_SPLIT_DELIM_CAPTURE );
+            $subPatternParts = preg_split( '@([.])@', $patternParts[0], -1, PREG_SPLIT_DELIM_CAPTURE );
+            $subRequestParts = preg_split( '@([.])@', $requestParts[0], -1, PREG_SPLIT_DELIM_CAPTURE );
 
             $patternParts = array_merge( $subPatternParts, array_slice( $patternParts, 1 ) );
             $requestParts = array_merge( $subRequestParts, array_slice( $requestParts, 1 ) );

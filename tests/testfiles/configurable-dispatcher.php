@@ -1,12 +1,13 @@
 <?php
 class simpleConfiguration implements ezcMvcDispatcherConfiguration
 {
-    var $store = 43;
-    var $route = null;
-    var $view  = null;
-    var $requestParser = null;
-    var $internalRedirectRequestFilter = false;
-    var $preRoutingFilter = false;
+    public $store = 43;
+    public $route = null;
+    public $view  = null;
+    public $requestParser = null;
+    public $internalRedirectRequestFilter = false;
+    public $preRoutingFilter = false;
+    public $controller = null;
 
     function createRequestParser()
     {
@@ -291,6 +292,9 @@ class testExceptionView extends ezcMvcView
 
 class testViewHandler2 implements ezcMvcViewHandler
 {
+    private $name;
+    private $templateName;
+    private $result;
     public $vars = array();
     function __construct( $name, $templateName = null )
     {
@@ -324,6 +328,10 @@ class testViewHandler2 implements ezcMvcViewHandler
 class testExceptionViewHandler implements ezcMvcViewHandler
 {
     public $vars = array();
+    public $name;
+    public $templateName;
+    public $result;
+
     function __construct( $name, $templateName = null )
     {
         $this->name = $name;
@@ -355,8 +363,8 @@ class testExceptionViewHandler implements ezcMvcViewHandler
 
 class testResponseWriter extends ezcMvcResponseWriter
 {
-    var $response;
-    var $config;
+    public $response;
+    public $config;
 
     function __construct( ezcMvcResponse $response )
     {
@@ -372,6 +380,7 @@ class testResponseWriter extends ezcMvcResponseWriter
 class testWrongObjectsConfiguration implements ezcMvcDispatcherConfiguration
 {
     public $fail = 'none';
+    public $store;
 
     function createRequestParser()
     {
