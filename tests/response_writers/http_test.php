@@ -135,7 +135,27 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
         $maxAgeDecember2034 = $december2034->getTimestamp() - time();
 
         list( $headers, $body ) = self::doTest( $response );
-        if (version_compare(phpversion(), '5.5.0', '<')) {
+        if (version_compare(phpversion(), '8.2.0', '>=')) {
+            $expectedHeaders = array(
+                "X-Powered-By: Apache Zeta Components MvcTools",
+                "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
+                'Content-Length: 8',
+                "Set-Cookie: simple=one",
+                "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30 Aug 2008 00:00:00 GMT; Max-Age=0; path=/test; domain=ez.no; secure; HttpOnly",
+                "Set-Cookie: speed=v%3D9.8%2A%28m%2Fs%5E2%29; HttpOnly",
+                "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12 Dec 2034 00:00:00 GMT; Max-Age=" . $maxAgeDecember2034 . "; secure",
+            );
+        } else if (version_compare(phpversion(), '7.3.0', '>=')) {
+            $expectedHeaders = array(
+                "X-Powered-By: Apache Zeta Components MvcTools",
+                "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
+                'Content-Length: 8',
+                "Set-Cookie: simple=one",
+                "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30-Aug-2008 00:00:00 GMT; Max-Age=0; path=/test; domain=ez.no; secure; HttpOnly",
+                "Set-Cookie: speed=v%3D9.8%2A%28m%2Fs%5E2%29; HttpOnly",
+                "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12-Dec-2034 00:00:00 GMT; Max-Age=" . $maxAgeDecember2034 . "; secure",
+            );
+        } else if (version_compare(phpversion(), '5.5.0', '>=')) {
             $expectedHeaders = array(
                 "X-Powered-By: Apache Zeta Components MvcTools",
                 "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
@@ -151,9 +171,9 @@ class ezcMvcToolsHttpResponseWriterTest extends ezcTestCase
                 "Date: " . date_create("UTC")->format( 'D, d M Y H:i:s \G\M\T'  ),
                 'Content-Length: 8',
                 "Set-Cookie: simple=one",
-                "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30-Aug-2008 00:00:00 GMT; Max-Age=" . $maxAgeAugust2008 . "; path=/test; domain=ez.no; secure; httponly",
+                "Set-Cookie: complex=e%3Dmc%5E2; expires=Sat, 30-Aug-2008 00:00:00 GMT; path=/test; domain=ez.no; secure; httponly",
                 "Set-Cookie: speed=v%3D9.8%2A%28m%2Fs%5E2%29; httponly",
-                "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12-Dec-2034 00:00:00 GMT; Max-Age=" . $maxAgeDecember2034 . "; secure",
+                "Set-Cookie: warp=G%3D%288%2Api%2Fc%5E4%29GT; expires=Tue, 12-Dec-2034 00:00:00 GMT; secure",
             );
         }
 
