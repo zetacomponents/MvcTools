@@ -207,7 +207,7 @@ class ezcMvcRailsRoute implements ezcMvcRoute, ezcMvcReversibleRoute
      *
      * @param array $arguments
      */
-    public function generateUrl( array $arguments = null )
+    public function generateUrl( ?array $arguments = null )
     {
         $patternParts = explode( '/', $this->pattern );
         foreach ( $patternParts as &$part )

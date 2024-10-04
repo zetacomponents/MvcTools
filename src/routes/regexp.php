@@ -9,9 +9,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -180,7 +180,7 @@ class ezcMvcRegexpRoute implements ezcMvcRoute, ezcMvcReversibleRoute
      *
      * @param array $arguments
      */
-    public function generateUrl( array $arguments = null )
+    public function generateUrl( ?array $arguments = null )
     {
         $url = $this->pattern;
         // strip delimiters
@@ -209,7 +209,7 @@ class ezcMvcRegexpRoute implements ezcMvcRoute, ezcMvcReversibleRoute
         $openPart = $openPartName = false;
         $partName = $partOffset = $partLength = false;
         $openParenthesis = 0;
-        
+
         for( $i = 0; isset( $url[$i] ); $i ++)
         {
             if ( $url[$i] == '(' )
@@ -220,7 +220,7 @@ class ezcMvcRegexpRoute implements ezcMvcRoute, ezcMvcReversibleRoute
             {
                 $openParenthesis--;
             }
-        
+
             if ( substr( $url, $i, 4 ) == '(?P<' )
             {
                 $openPart = $openPartName = true;
@@ -228,11 +228,11 @@ class ezcMvcRegexpRoute implements ezcMvcRoute, ezcMvcReversibleRoute
                 $partLength = 4;
                 $i += 4;
             }
-        
+
             if ( $openPart )
             {
                 $partLength++;
-        
+
                 if ( $url[$i] == ')' && $openParenthesis == 0 )
                 {
                     $url = str_replace(
@@ -240,7 +240,7 @@ class ezcMvcRegexpRoute implements ezcMvcRoute, ezcMvcReversibleRoute
                         $arguments[$partName],
                         $url
                     );
-        
+
                     $i = $partOffset + strlen( $arguments[$partName] );
 
                     $partName = '';
@@ -249,14 +249,14 @@ class ezcMvcRegexpRoute implements ezcMvcRoute, ezcMvcReversibleRoute
                     $partLength = 0;
                 }
             }
-            
-            if ( $openPartName ) 
+
+            if ( $openPartName )
             {
-                if ( $url[$i] == '>' ) 
+                if ( $url[$i] == '>' )
                 {
                     $openPartName = false;
-                } 
-                else 
+                }
+                else
                 {
                     $partName.= $url[$i];
                 }
